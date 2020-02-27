@@ -10,7 +10,7 @@ export default class extends React.Component {
     componentDidMount = async () => {
 
 	// 데이터를 불러올 API 주소
-    let url = "http://54.180.149.147:8080/api/movie";
+    let url = "http://54.180.149.147:8080/api/team/1/movie";
 
 	//데이터를 서버에서 불러와서 movieList라는 변수에 저장한다 
     let movieList = await superagent
@@ -41,22 +41,22 @@ export default class extends React.Component {
           posterUrl={movie.posterUrl}
           advanceRate={movie.advanceRate}
           advanceRateRank={movie.advanceRateRank}
+          id={movie._id}
         />
       ))
     : null}
-
-
-
       </div>
     );
   }
 }
 
-const MovieItem = ({ title, posterUrl, advanceRate, advanceRateRank }) => {
+const MovieItem = ({ title, posterUrl, advanceRate, advanceRateRank,id }) => {
+  var url = "/movie/detail/"+id.toString();
+  console.log(id.toString());
   return (
     <div>
-      <h3>{title}</h3>
-      <img width="150" src={posterUrl}/>
+      <h3><a href={url}>{title}</a></h3>
+      <a href={url}><img width="150" src={posterUrl}/></a>
       <div>예매율: {advanceRate}</div>
       <div>예매율 순위 : {advanceRateRank}</div>
     </div>
